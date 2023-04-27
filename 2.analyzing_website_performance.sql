@@ -15,6 +15,7 @@ GROUP BY pageview_url
 ORDER BY page_views
 DESC
 ;
+
 CREATE TEMPORARY TABLE first_pageview
 SELECT
 	website_session_id,
@@ -47,12 +48,20 @@ GROUP BY
 landing_page
 ;
 
+SELECT
+    website_pageviews.pageview_url AS landing_page,
+    count(DISTINCT website_pageviews.website_pageview_id) AS page_views
+FROM website_pageviews
+WHERE website_pageviews.created_at < '2012-06-09'
+GROUP BY
+	landing_page
+ORDER BY
+	page_views
+DESC
+;
 
-
-
-
-
-
+-- STEP 1: find the first pageview for each session
+-- STEP 2: find the url the customer saw on that first pageview
 
 
 
